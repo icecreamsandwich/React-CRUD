@@ -8,7 +8,8 @@ var ManagerHome = React.createClass({
     getInitialState: function() {
         return {
             title: "",
-            content: ""
+            content: "",
+            allAnnouncements: [],
         };
     },
 
@@ -26,8 +27,10 @@ var ManagerHome = React.createClass({
         helpers.getAnnouncements().then(function(response) {
           this.setState({
             title: response.data[response.data.length -1].title,
-            content: response.data[response.data.length -1].content
+            content: response.data[response.data.length -1].content,
+            allAnnouncements: response.data 
           });
+//          this.setState({ allAnnouncements: response.data });
         }.bind(this));
     },
 
@@ -37,7 +40,7 @@ var ManagerHome = React.createClass({
                 <ScheduleView />
                 <div className="row">
                     <div className="col m6">
-                        <AnnouncementsView title={this.state.title} content={this.state.content}/>
+                        <AnnouncementsView title={this.state.title} content={this.state.content} data={this.state.allAnnouncements}/>
                     </div>
                     <div className="col m6">
                         <AnnouncementsBuild />

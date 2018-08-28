@@ -15,6 +15,24 @@ var AnnouncementsView = React.createClass({
                         <h5>{this.props.title}</h5>
                         <p>{this.props.content}</p>
                         {/* <p>{this.state.content}</p> */}
+                        <table className="highlight" id="allEmployees">
+                            <thead>
+                                <tr>
+                                    <th data-field="name">Announcements</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.props.data.map(function(Announcements, i) {
+                                    return (
+                                        <tr key={i}>
+                                            <td>
+                                                {Announcements.title} {Announcements.content}
+                                            </td>
+                                        </tr>
+                                    );
+                                }, this)}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
