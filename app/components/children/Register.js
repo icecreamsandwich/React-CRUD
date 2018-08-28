@@ -9,7 +9,8 @@ class Register extends React.Component {
       password: "",
       email:"",
       passwordConfirmation:"",
-      error: ""
+      error: "",
+      emp_id: ""
     }
 
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -22,11 +23,19 @@ class Register extends React.Component {
 
   handleLogin() {
 
-   // helpers.errorMessage().then(function(response) {
-   //      console.log(response)
-   //          this.setState({ error: response.data});
-   //        }.bind(this));
-
+//    helpers.errorMessage().then(function(response) {
+//         console.log(response)
+//             this.setState({ error: response.data});
+//           }.bind(this));
+    
+         helpers.addEmployee(this.state.username, this.state.username, this.state.username, this.state.username, this.state.username, this.state.email, this.state.email, this.state.email, this.state.password, this.state.password).then(function(response) {
+            this.state.emp_id = response.data._id;
+            helpers.addEmpSchedule(this.state.emp_id, this.state.username, this.state.username).then(function(response) {
+//                this.clearStates();
+            }.bind(this));
+        }.bind(this));
+        Materialize.toast('Registered Successfully', 5000);
+        
   }
     render() {
       return (
@@ -36,11 +45,12 @@ class Register extends React.Component {
                     <div className="card-panel">
                         <div className="row grey lighten-5">
                             <div className="col s12 center">
-                                <h4 className="blue-text text-darken-1">Register</h4>
+                                <h4 className="blue-text text-darken-1">User Registration</h4>
                                 <h4> {this.state.error}</h4>
                             </div>
                         </div>
-                        <form action="/register" method="POST" onSubmit={this.handleLogin}>
+                {/* action="/register" method="POST" */}
+                        <form method="POST" onSubmit={this.handleLogin}> 
                             <div className="row">
                                 <div className="col s12">
                                     <input
