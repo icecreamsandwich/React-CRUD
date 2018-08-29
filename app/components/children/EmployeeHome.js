@@ -7,12 +7,15 @@ var EmployeeHome = React.createClass({
     getInitialState: function() {
         return {
             title: "",
-            content: ""
+            content: "",
+            allAnnouncements: [],
+            allMiscs: [],
         };
     },
 
     componentDidMount: function() {
         this.getAnnouncements();
+         this.getMiscs();
     },
 
     // componentDidUpdate: function(prevState) {
@@ -25,7 +28,16 @@ var EmployeeHome = React.createClass({
         helpers.getAnnouncements().then(function(response) {
           this.setState({
             title: response.data[response.data.length -1].title,
-            content: response.data[response.data.length -1].content
+            content: response.data[response.data.length -1].content,
+            allAnnouncements: response.data,      
+          });
+        }.bind(this));
+    },
+    
+    getMiscs: function() {
+        helpers.getMiscs().then(function(response) {
+          this.setState({
+            allMiscs: response.data
           });
         }.bind(this));
     },
@@ -33,7 +45,7 @@ var EmployeeHome = React.createClass({
     render: function() {
         return (
             <div>
-                <AnnouncementsView title={this.state.title} content={this.state.content}/>
+                <AnnouncementsView title={this.state.title} content={this.state.content} announcements={this.state.allAnnouncements}/>
                 <ScheduleView />
             </div>
         );
